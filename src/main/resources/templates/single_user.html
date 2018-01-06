@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<title>Parkwisely User Information</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Parkwisely</a>
+    </div>
+   
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container"> 
+<div>
+<center> <h3>Create New user</h3> </center>
+</div>
+<div th:if="${user.userId == 0}">
+	
+	<form action="#" th:action="@{/parkwisely/user/add}" method="POST"
+		th:object="${user}">
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="firstName">First Name:</label>
+		<div class="col-sm-10">
+		  <input type="text" id="firstName" name="firstName" class="form-control"
+		  placeholder="Enter First Name" 
+		  th:value="${user.firstName}" />
+		</div>
+	</div>
+	<br /> <br /> <br />
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="lastName">Last Name:</label>
+		<div class="col-sm-10">
+		  <input type="text" id="lastName" name="lastName" class="form-control"
+		  placeholder="Enter Last Name" 
+		  th:value="${user.lastName}" />
+		</div>
+	</div>
+	<br /> <br /> 
+		<div class="form-group">
+		<label class="control-label col-sm-2" for="emailId">Email Id:</label>
+		<div class="col-sm-10">
+		  <input type="email" id="emailId" name="emailId" class="form-control"
+		  placeholder="Enter email" 
+		  th:value="${user.emailId}" />
+		</div>
+	</div>
+	<br /> <br /> 
+	
+		<div class="form-group">
+		<label class="control-label col-sm-2" for="phoneNo">Phone No:</label>
+		<div class="col-sm-10">
+		  <input type="text" id="phoneNo" name="phoneNo" class="form-control"
+		  placeholder="Enter Phone No" 
+		  th:value="${user.phoneNo}" />
+		</div>
+	</div>
+	<br /> <br /> 
+	
+	
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="sex">Gender:</label>
+		<div class="col-sm-10">
+		  <input type="text" id="sex" name="sex" class="form-control"
+		  placeholder="Enter Gender" 
+		  th:value="${user.sex}" />
+		</div>
+	</div>
+	<br /> <br /> 
+		
+		<div class="form-group">
+		<label class="control-label col-sm-2" for="otp">OTP:</label>
+		<div class="col-sm-10">
+		  <input type="text" id="otp" name="otp" class="form-control"
+		  placeholder="Enter OTP" 
+		  th:value="${user.otp}" />
+		</div>
+	</div>
+	<br /> <br /> 
+		
+		<div class="form-group">
+		<label class="control-label col-sm-2" for="corporateInd">Corporate Indicator:</label>
+		<div class="col-sm-10">
+		  <input type="text" id="corporateInd" name="corporateInd" class="form-control"
+		  placeholder="Enter true or false only" 
+		  th:value="${user.corporateInd}" />
+		</div>
+	</div>
+	
+	<br /> <br /> <br />
+	
+	
+	 <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+      <input type="button" id="sendotp" class="btn btn-default" name="SendOTP" value="SendOTP" onclick="sendOtp()" />
+		 <input type="submit" class="btn btn-default" name="Register" value="Register" /> 
+      </div>
+      </div>
+		
+	</form>
+</div>
+
+</div>
+
+
+</body>
+
+<script type="text/javascript">
+//<![CDATA[
+function sendOtp() {
+	  var xhttp = new XMLHttpRequest();
+	  var phone = $("#phoneNo").val()
+	  var email = $("#emailId").val()
+	  var fn = $("#firstName").val()
+	  alert('came here')
+	  xhttp.onreadystatechange = function() {
+	    if (this.readyState == 4 && this.status == 200) {
+	    	alert(this.responseText)
+	    }
+	  };
+	  xhttp.open("POST", "http://localhost:8001/parkwisely/user/sendOTP", true);
+	  xhttp.setRequestHeader("Content-type", "application/json");
+	  xhttp.send(JSON.stringify({phoneNo:$("#phoneNo").val(),emailId:$("#emailId").val(), firstName:$("#firstName").val() }));
+	}
+//]]> 
+    
+</script>
+</html>

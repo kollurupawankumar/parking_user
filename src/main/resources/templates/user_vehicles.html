@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+ <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<title>Parkwisely User Information</title>
+
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Parkwisely</a>
+    </div>
+   
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="container"> 
+<dl>
+<dt>Vehicle Information </dt>
+</dl>
+<div class=".table-striped"> 
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Vehicle Id</th>
+			 <th>Vehicle Name</th> 	
+				<th>Brand</th>
+				<th>EfftDt</th>
+				<th>Model</th>
+				<th>Reg No</th>
+			
+				<th>Delete</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="vehicle : ${vehicles}">
+				<td th:text="${vehicle.vehicleId}"></td>
+			  	<td th:text="${vehicle.vehicleType}"></td> 
+				<td th:text="${vehicle.brand}"></td>
+				<td th:text="${vehicle.efftdt}"></td>
+				<td th:text="${vehicle.model}"></td>
+				<td th:text="${vehicle.regNo}"></td>
+				<td><a th:href="@{/parkwisely/vehicle/delete(vehicleId=${vehicle.vehicleId},userId=${userId})}">Delete</a></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+	<br />
+ 
+	<div th:if="${vehicle.vehicleId == 0}" class="well">
+	  <h4 class="text-danger" align="center">New vehicle information </h4> 
+	   <form action="#" th:action="@{/parkwisely/vehicle/add(userId=${userId})}" th:method="@{POST}" th:object="${vehicle}">
+		<!--  	vehicleId <input type="text" id="vehicleId" name="vehicleId" th:value="${vehicle.vehicleId}" readonly="readonly" /><br />
+-->
+
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="vehicleType">Vehicle Name:</label>
+		<div class="col-sm-10">
+		  <input type="text" id="vehicleType" name="vehicleType" class="form-control"
+		  placeholder="Enter Vehicle Name" 
+		  th:value="${vehicle.vehicleType}" />
+		</div>
+	</div>
+	<br /><br /> <br />
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="brand">Brand:</label>
+		<div class="col-sm-10">
+		  <input type="text" id="brand" name="brand" class="form-control"
+		  placeholder="Enter Brand" 
+		  th:value="${vehicle.brand}" />
+		</div>
+	</div>
+	<br /><br />
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="model">Model:</label>
+		<div class="col-sm-10">
+		  <input type="text" id="model" name="model" class="form-control"
+		  placeholder="Enter Model" 
+		  th:value="${vehicle.model}" />
+		</div>
+	</div>
+	<br /><br />
+	
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="regNo">Reg No:</label>
+		<div class="col-sm-10">
+		  <input type="text" id="regNo" name="regNo" class="form-control"
+		  placeholder="Enter Registration Number" 
+		  th:value="${vehicle.regNo}" />
+		</div>
+	</div>
+	
+	<br /><br />
+			<div class="form-group">        
+      			<div class="col-sm-offset-2 col-sm-10">
+				<input type="submit" class="btn btn-default" name="Add Vehicle" value="Add Vehicle"/>
+				</div>
+			</div>
+			<br />
+		</form>
+	</div>
+</div>
+</body>
+</html>

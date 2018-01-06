@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<title>Parkwisely User Information</title>
+
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Parkwisely</a>
+    </div>
+   
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="container"> 
+<dl>
+<dt>User Information </dt>
+</dl>
+
+<div class=".table-striped"> 
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>User Id</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Email Id</th>
+				<th>Phone No</th>
+				<th>Date of Joining</th>
+				<th>Effective Date</th>
+				<th>Corporate Indicator</th>
+				<th>Gender</th>
+				<th>Edit</th>
+				<th>Delete</th>
+				<th>Veh. Info</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="user : ${users}">
+				<td th:text="${user.userId}"></td>
+				<td th:text="${user.firstName}"></td>
+				<td th:text="${user.lastName}"></td>
+				<td th:text="${user.emailId}"></td>
+				<td th:text="${user.phoneNo}"></td>
+				<td th:text="${user.dateOfJoining}"></td>
+				<td th:text="${user.efftDt}"></td>
+				<td th:text="${user.corporateInd}"></td>
+				<td th:text="${user.sex}"></td>
+				<td><a th:href="@{/parkwisely/user/edit(userId=${user.userId})}">Edit</a></td>
+				<td><a th:href="@{/parkwisely/user/delete(userId=${user.userId})}">Delete</a></td>
+				<td><a th:href="@{/parkwisely/vehicle/getbyuser(userId=${user.userId})}">Veh. Info</a></td>
+			</tr>
+		</tbody>
+	</table>
+	<br />
+</div>
+</div>
+
+</body>
+</html>

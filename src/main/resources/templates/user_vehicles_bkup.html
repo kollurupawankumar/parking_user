@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<head>
+ <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<title>Parkwisely User Information</title>
+
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Parkwisely</a>
+    </div>
+   
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="container"> 
+<dl>
+<dt>Vehicle Information </dt>
+</dl>
+<div class=".table-striped"> 
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Vehicle Id</th>
+			 <th>Vehicle Name</th> 	
+				<th>Brand</th>
+				<th>EfftDt</th>
+				<th>Model</th>
+				<th>Reg No</th>
+			
+				<th>Delete</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="vehicle : ${vehicles}">
+				<td th:text="${vehicle.vehicleId}"></td>
+			  	<td th:text="${vehicle.vehicleType}"></td> 
+				<td th:text="${vehicle.brand}"></td>
+				<td th:text="${vehicle.efftdt}"></td>
+				<td th:text="${vehicle.model}"></td>
+				<td th:text="${vehicle.regNo}"></td>
+				<td><a th:href="@{/parkwisely/vehicle/delete(vehicleId=${vehicle.vehicleId},userId=${userId})}">Delete</a></td>
+			</tr>
+		</tbody>
+	</table>
+	<br />
+ 	<div  th:if="${vehicle.vehicleId != 0}">
+         <h2>Edit vehicle Information</h2> <a th:href="@{/parkwisely/vehicle/getbyuser(userId=${userId})}">Create New vehicle</a>
+		 <form action="#" th:action="@{/parkwisely/vehicle/add(userId=${userId})}" method="POST" th:object="${vehicle}">
+			vehicleId <input type="text" id="vehicleId" name="vehicleId" th:value="${vehicle.vehicleId}" readonly="readonly" /><br />
+			vehicle Name <input type="text" id="vehicleType" name="vehicleType" th:value="${vehicle.vehicleType}"/><br />
+			Brand  <input type="text" id="brand" name="brand" th:value="${vehicle.brand}"/><br />
+			Model <input type="text" id="model" name="model" th:value="${vehicle.model}"/><br />
+			Reg No <input type="text" id="regNo" name="regNo" th:value="${vehicle.regNo}"/><br />
+			<input type="submit" />
+		</form>
+	</div>
+	<div th:if="${vehicle.vehicleId == 0}">
+	   <h2>Create New vehicle</h2>
+	   <form action="#" th:action="@{/parkwisely/vehicle/add(userId=${userId})}" th:method="@{POST}" th:object="${vehicle}">
+		<!--  	vehicleId <input type="text" id="vehicleId" name="vehicleId" th:value="${vehicle.vehicleId}" readonly="readonly" /><br />
+-->
+			Vehicle Name <input type="text" id="vehicleType" name="vehicleType" th:value="${vehicle.vehicleType}"/><br />
+			Brand  <input type="text" id="brand" name="brand" th:value="${vehicle.brand}"/><br />
+		<!--  	Efftdt <input type="text" id="efftdt" name="efftdt" th:value="${vehicle.efftdt}"/><br /> -->
+			Model <input type="text" id="model" name="model" th:value="${vehicle.model}"/><br />
+			Reg No <input type="text" id="regNo" name="regNo" th:value="${vehicle.regNo}"/><br />
+			<input type="submit" />
+		</form>
+	</div>
+
+</body>
+</html>
